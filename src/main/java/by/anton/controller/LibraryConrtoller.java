@@ -14,11 +14,18 @@ public class LibraryConrtoller {
     @Autowired
     private BookService bookService;
 
+    /**
+     * @return List all books
+     */
     @GetMapping("/books")
     public List<Book> getAllBooks() {
         return bookService.getAllBooks();
     }
 
+    /**
+     * @param book - from body request book add to repository
+     * @return book this id, after save to repository
+     */
     @PostMapping("/books")
     public Book addBook(@RequestBody Book book) {
         if (book == null) {

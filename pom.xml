@@ -10,7 +10,6 @@
   <packaging>war</packaging>
 
   <name>it_library REST</name>
-  <!-- FIXME change it to the project's website -->
   <url>http://www.anton.by</url>
 
   <properties>
@@ -70,8 +69,6 @@
     <artifactId>spring-security-crypto</artifactId>
     <version>5.4.2</version>
   </dependency>
-
-
 
     <dependency>
       <groupId>junit</groupId>
