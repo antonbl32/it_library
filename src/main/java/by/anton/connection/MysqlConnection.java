@@ -17,7 +17,7 @@ public class MysqlConnection implements Closeable {
     public MysqlConnection() throws ClassNotFoundException {
         System.out.println("Registering JDBC driver...");
 
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.cj.jdbc.Driver");
 
         System.out.println("Creating database connection...");
         try {

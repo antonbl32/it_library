@@ -4,12 +4,14 @@ import by.anton.connection.MysqlConnection;
 import by.anton.entity.Author;
 import by.anton.entity.Book;
 import by.anton.entity.Genre;
+import lombok.Data;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 public class BookDAOImpl implements BookDAO {
     private MysqlConnection db=new MysqlConnection();
     private Statement statement=db.getStatement();
@@ -54,9 +56,17 @@ public class BookDAOImpl implements BookDAO {
     public Book getBookById(int id) {
         String sql = "select * from book b JOIN author a ON a.author_id=b.book_author\n" +
                 "JOIN genre g on g.genre_id=b.book_genre where b.book_id="+id;
-
+        ResultSet resultSet = null;
         try {
-            ResultSet resultSet = statement.executeQuery(sql);
+            resultSet = statement.executeQuery(sql);
+            return this.mapResultSetToBook(resultSet);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+    public Book mapResultSetToBook(ResultSet resultSet){
+        try {
             return new Book(resultSet.getInt("book_id"),
                     resultSet.getString("book_name"),new Author(resultSet.getInt("author_id"),
                     resultSet.getString("author_name"),
@@ -67,10 +77,12 @@ public class BookDAOImpl implements BookDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        return new Book();
+        return null;
     }
-
+    public static void main(String[] args) throws ClassNotFoundException {
+        BookDAOImpl b=new BookDAOImpl();
+        System.out.println(b.getAllBooks());;
+    }
     @Override
     public List<Book> getAllBooks() {
         List<Book> list=new ArrayList<>();
@@ -79,13 +91,7 @@ public class BookDAOImpl implements BookDAO {
         try {
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
-                list.add(new Book(resultSet.getInt("book_id"),
-                        resultSet.getString("book_name"),new Author(resultSet.getInt("author_id"),
-                        resultSet.getString("author_name"),
-                        resultSet.getString("author_soname")),
-                        new Genre(resultSet.getInt("genre_id"),
-                                resultSet.getString("genre_type"),
-                                resultSet.getString("genre_desc"))));
+                list.add(this.mapResultSetToBook(resultSet));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -96,7 +102,8 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public void addBook(Book book) {
-        String sql="INSERT INTO book ('book_id','book_name','book_author)";
+        String sql="INSERT INTO book ('book_id','book_name','book_author)" +
+                "VALUES()";
     }
 
     @Override
