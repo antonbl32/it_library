@@ -52,13 +52,18 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public Book getBookById(int id) {
-        String sql = "SELECT * FROM book where book_id="+id;
+        String sql = "select * from book b JOIN author a ON a.author_id=b.book_author\n" +
+                "JOIN genre g on g.genre_id=b.book_genre where b.book_id="+id;
 
         try {
             ResultSet resultSet = statement.executeQuery(sql);
             return new Book(resultSet.getInt("book_id"),
-                    resultSet.getString("book_name"),this.getAuthor(resultSet.getInt("book_author")),
-                    this.getGenre(resultSet.getInt("book_genre")));
+                    resultSet.getString("book_name"),new Author(resultSet.getInt("author_id"),
+                    resultSet.getString("author_name"),
+                    resultSet.getString("author_soname")),
+                    new Genre(resultSet.getInt("genre_id"),
+                            resultSet.getString("genre_type"),
+                            resultSet.getString("genre_desc")));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -69,13 +74,18 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public List<Book> getAllBooks() {
         List<Book> list=new ArrayList<>();
-        String sql = "SELECT * FROM book;";
+        String sql = "select * from book b JOIN author a ON a.author_id=b.book_author " +
+                "JOIN genre g on g.genre_id=b.book_genre;";
         try {
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 list.add(new Book(resultSet.getInt("book_id"),
-                        resultSet.getString("book_name"),this.getAuthor(resultSet.getInt("book_author")),
-                        this.getGenre(resultSet.getInt("book_genre"))));
+                        resultSet.getString("book_name"),new Author(resultSet.getInt("author_id"),
+                        resultSet.getString("author_name"),
+                        resultSet.getString("author_soname")),
+                        new Genre(resultSet.getInt("genre_id"),
+                                resultSet.getString("genre_type"),
+                                resultSet.getString("genre_desc"))));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -86,7 +96,7 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public void addBook(Book book) {
-
+        String sql="INSERT INTO book ('book_id','book_name','book_author)";
     }
 
     @Override
