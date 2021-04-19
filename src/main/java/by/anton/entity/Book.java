@@ -9,7 +9,7 @@ public class Book {
     private String name;
     private Author author;
     private Genre genre;
-    private User user;
+//    private User user;
 
     public Book() {
     }
