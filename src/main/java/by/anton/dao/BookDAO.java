@@ -12,7 +12,5 @@ public interface BookDAO {
     public List<Book> getAllBooks();
     public void addBook(Book book);
     public void deleteBook(int id);
-    public Genre getGenre(int id);
-    public Author getAuthor(int id);
 //    public User getUser(int id);
 }
