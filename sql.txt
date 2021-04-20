@@ -1,0 +1,48 @@
+CREATE TABLE `author` (
+  `author_id` int(11) NOT NULL,
+  `author_name` varchar(45) NOT NULL,
+  `author_soname` varchar(45) NOT NULL,
+  PRIMARY KEY (`author_id`),
+  UNIQUE KEY `author_id_UNIQUE` (`author_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `book` (
+  `book_id` int(11) NOT NULL AUTO_INCREMENT,
+  `book_name` varchar(45) NOT NULL,
+  `book_author_id` int(11) NOT NULL,
+  `book_user_id` int(11) NOT NULL,
+  `book_genre` int(11) NOT NULL,
+  PRIMARY KEY (`book_id`),
+  UNIQUE KEY `book_id_UNIQUE` (`book_id`),
+  KEY `book_author_idx` (`book_author_id`),
+  KEY `book_user_idx` (`book_user_id`),
+  KEY `book_genre_idx` (`book_genre`),
+  CONSTRAINT `book_author` FOREIGN KEY (`book_author_id`) REFERENCES `author` (`author_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `book_user` FOREIGN KEY (`book_user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `book_genre` FOREIGN KEY (`book_genre`) REFERENCES `genre` (`genre_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='this main item'
+
+CREATE TABLE `genre` (
+  `genre_id` int(11) NOT NULL,
+  `genre_type` varchar(45) NOT NULL,
+  `genre_desc` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`genre_id`),
+  UNIQUE KEY `genre_id_UNIQUE` (`genre_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `user` (
+  `user_id` int(10) NOT NULL,
+  `user_name` varchar(45) NOT NULL,
+  `user_password` varchar(45) NOT NULL,
+  `user_role_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_id_UNIQUE` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `role` (
+  `role_id` int(11) NOT NULL,
+  `role_group_name` varchar(45) NOT NULL,
+  `role_admin` varchar(45) DEFAULT NULL,
+  `role_user` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

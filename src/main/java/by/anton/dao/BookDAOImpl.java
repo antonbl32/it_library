@@ -26,6 +26,8 @@ public class BookDAOImpl implements BookDAO {
                     resultSet.getString("genre_desc"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            db.close();
         }
         return new Genre();
     }
@@ -40,6 +42,8 @@ public class BookDAOImpl implements BookDAO {
                     resultSet.getString("author_soname"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            db.close();
         }
         return new Author();
     }
@@ -54,14 +58,16 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public Book getBookById(int id) {
-        String sql = "select * from book b JOIN author a ON a.author_id=b.book_author\n" +
-                "JOIN genre g on g.genre_id=b.book_genre where b.book_id="+id;
+        String sql = "select * from book b JOIN author a ON a.author_id=b.book_author_id" +
+                " JOIN genre g on g.genre_id=b.book_genre where b.book_id="+id;
         ResultSet resultSet = null;
         try {
             resultSet = statement.executeQuery(sql);
             return this.mapResultSetToBook(resultSet);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            db.close();
         }
         return null;
     }
@@ -86,7 +92,7 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public List<Book> getAllBooks() {
         List<Book> list=new ArrayList<>();
-        String sql = "select * from book b JOIN author a ON a.author_id=b.book_author " +
+        String sql = "select * from book b JOIN author a ON a.author_id=b.book_author_id " +
                 "JOIN genre g on g.genre_id=b.book_genre;";
         try {
             ResultSet resultSet = statement.executeQuery(sql);
@@ -95,6 +101,8 @@ public class BookDAOImpl implements BookDAO {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            db.close();
         }
 
         return list;
@@ -102,7 +110,7 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public void addBook(Book book) {
-        String sql="INSERT INTO book ('book_id','book_name','book_author)" +
+        String sql="INSERT INTO book ('book_id','book_name','book_author_id)" +
                 "VALUES()";
     }
 
