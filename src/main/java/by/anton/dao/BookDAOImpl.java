@@ -13,21 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 @Data
 public class BookDAOImpl implements BookDAO {
-    private MysqlConnection db=new MysqlConnection();
-    private Statement statement=db.getStatement();
 
     @Override
     public Genre getGenre(int id) {
+
         String sqlAuthor = "SELECT * FROM genre where genre_id="+id;
-        try {
+        try (MysqlConnection db=new MysqlConnection()){
+            Statement statement=db.getStatement();
             ResultSet resultSet=statement.executeQuery(sqlAuthor);
             return new Genre(resultSet.getInt("genre_id"),
                     resultSet.getString("genre_type"),
                     resultSet.getString("genre_desc"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            db.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return new Genre();
     }
@@ -35,15 +35,16 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public Author getAuthor(int id) {
         String sqlAuthor = "SELECT * FROM author where author_id="+id;
-        try {
+        try (MysqlConnection db=new MysqlConnection()){
+            Statement statement=db.getStatement();
             ResultSet resultSet=statement.executeQuery(sqlAuthor);
             return new Author(resultSet.getInt("author_id"),
                     resultSet.getString("author_name"),
                     resultSet.getString("author_soname"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            db.close();
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return new Author();
     }
@@ -66,8 +67,6 @@ public class BookDAOImpl implements BookDAO {
             return this.mapResultSetToBook(resultSet);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            db.close();
         }
         return null;
     }
@@ -87,7 +86,8 @@ public class BookDAOImpl implements BookDAO {
     }
     public static void main(String[] args) throws ClassNotFoundException {
         BookDAOImpl b=new BookDAOImpl();
-        System.out.println(b.getAllBooks());;
+        System.out.println(b.getAllBooks());
+        db.close();
     }
     @Override
     public List<Book> getAllBooks() {
@@ -101,8 +101,6 @@ public class BookDAOImpl implements BookDAO {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }finally {
-            db.close();
         }
 
         return list;
