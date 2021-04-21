@@ -6,7 +6,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Role {
     private int id;
-    private String group;
+//    private String group;
     private int isAdmin;
     private int isUser;
 }

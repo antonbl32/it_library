@@ -23,8 +23,9 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public Book getBookById(int id) {
-        String sql = "select * from book b JOIN author a ON a.author_id=b.book_author_id" +
-                " JOIN genre g on g.genre_id=b.book_genre JOIN user u on u.user_id=b.book_user where b.book_id=" + id;
+        String sql = "select * from book b JOIN author a ON a.author_id=b.book_author" +
+                "            JOIN genre g on g.genre_id=b.book_genre JOIN user u on u.user_id=b.book_user " +
+                "where b.book_id=" + id;
         ResultSet resultSet = null;
         try (Connection connection = db.getConnection();
              Statement statement = connection.createStatement()) {
@@ -57,7 +58,6 @@ public class BookDAOImpl implements BookDAO {
                             resultSet.getString("user_name"),
                             resultSet.getString("user_password"),
                             new Role(resultSet.getInt("role_id"),
-                                    resultSet.getString("role_group_name"),
                                     resultSet.getInt("role_admin"),
                                     resultSet.getInt("role_user"))));
         } catch (SQLException throwable) {
@@ -75,8 +75,9 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public List<Book> getAllBooks() {
         List<Book> list = new ArrayList<>();
-        String sql = "select * from book b JOIN author a ON a.author_id=b.book_author_id " +
-                "JOIN genre g on g.genre_id=b.book_genre JOIN user u on u.user_id=b.book_user;";
+        String sql = "select * from book b JOIN author a ON a.author_id=b.book_author " +
+                "JOIN genre g on g.genre_id=b.book_genre JOIN user u on u.user_id=b.book_user " +
+                "JOIN role r on r.role_id=u.user_role;";
         try (Connection connection = db.getConnection();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);

@@ -1,9 +1,6 @@
 package by.anton.dao;
 
-import by.anton.entity.Author;
 import by.anton.entity.Book;
-import by.anton.entity.Genre;
-import by.anton.entity.User;
 
 import java.util.List;
 
