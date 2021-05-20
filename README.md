@@ -1,3 +1,2 @@
 # it_library
-It's library consist from backend including java 8,spring REST, spring security, hibernate, spring aop,lombok, log4j.
-Now book library in projecting.
+It's library first path of free_it pet project with jdbc
