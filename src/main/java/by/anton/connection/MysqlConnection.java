@@ -16,7 +16,7 @@ public class MysqlConnection implements Closeable {
         ds.setDriverClass("com.mysql.cj.jdbc.Driver");
         ds.setUser("root");
         ds.setPassword("321000");
-        ds.setJdbcUrl("jdbc:mysql://localhost:3307/freeit?serverTimezone=Europe/Moscow");
+        ds.setJdbcUrl("jdbc:mysql://localhost:3306/library?serverTimezone=Europe/Moscow");
     }
     public Connection getConnection() throws SQLException {
         return ds.getConnection();
