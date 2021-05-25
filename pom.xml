@@ -7,9 +7,9 @@
     <groupId>by.anton</groupId>
     <artifactId>it_library</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
-    <name>it_library REST</name>
+    <name>it_library</name>
     <url>http://www.anton.by</url>
 
     <properties>
@@ -71,10 +71,6 @@
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.2.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>

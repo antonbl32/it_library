@@ -2,7 +2,6 @@ package by.anton.dao;
 
 import by.anton.connection.MysqlConnection;
 import by.anton.entity.User;
-import by.anton.exception.NoSuchBookException;
 import by.anton.exception.NoSuchUserException;
 import by.anton.facade.ResultSetToUser;
 import org.apache.log4j.LogManager;
@@ -70,7 +69,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void addUser(User user) {
         String sql = "insert into user u (user_id,user_name,user_password,user_role_id) VALUES" +
-                "(default,'" + user.getName() + "'," + user.getPassword() + "," + user.getRole().getId() +";)";
+                "(default,'" + user.getName() + "'," + user.getPassword() + "," + user.getRole().getId() + ";)";
         try (Connection connection = db.getConnection();
              Statement statement = connection.createStatement()) {
             statement.execute(sql);
