@@ -12,4 +12,10 @@ public interface BookService {
     void addBook(Book book);
 
     void deleteBook(int id);
+
+    List<Book> sortBooksByName(List<Book> list);
+
+    List<Book> sortBooksByAuthor(List<Book> list);
+
+    List<Book> sortBooksByGenre(List<Book> list);
 }

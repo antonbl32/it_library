@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 @NoArgsConstructor
 public class ResultSetMapToBook {
     public Book mapResultSetToBook(ResultSet resultSet) throws SQLException {

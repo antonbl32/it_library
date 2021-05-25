@@ -6,9 +6,9 @@ import by.anton.entity.User;
 import java.util.List;
 
 public interface UserDAO {
-    Book getUserById(int id);
+    User getUserById(int id);
 
-    List<Book> getAllUsers();
+    List<User> getAllUsers();
 
     void addUser(User user);
 
