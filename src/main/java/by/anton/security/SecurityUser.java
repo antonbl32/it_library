@@ -18,9 +18,9 @@ public class SecurityUser {
         Scanner sc = new Scanner(System.in);
         int key;
         System.out.println("-------Sign in---------");
-        System.out.println("-------Type your user name - test");
+        System.out.println("-------Enter your user name - test");
         String name = sc.next();
-        System.out.println("-------Type your passwd - test");
+        System.out.println("-------Enter your password - test");
         String password = sc.next();
         Optional<User> user = list.stream().filter(u -> u.getName().equalsIgnoreCase(name)
                 && u.getPassword().equalsIgnoreCase(password)).findFirst();
