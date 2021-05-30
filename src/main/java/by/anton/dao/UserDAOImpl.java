@@ -21,7 +21,7 @@ public class UserDAOImpl implements UserDAO {
     private static final Logger log = LogManager.getLogger(BookDAOImpl.class);
 
     public UserDAOImpl() throws PropertyVetoException {
-        this.db = new MysqlConnection();
+        this.db = MysqlConnection.getInstance();
     }
 
     @Override

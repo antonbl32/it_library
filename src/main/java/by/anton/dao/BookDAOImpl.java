@@ -22,8 +22,8 @@ public class BookDAOImpl implements BookDAO {
     private ResultSetMapToBook mapTo = new ResultSetMapToBook();
     private static final Logger log = LogManager.getLogger(BookDAOImpl.class);
 
-    public BookDAOImpl() throws PropertyVetoException {
-        this.db = new MysqlConnection();
+    public BookDAOImpl() {
+        this.db = MysqlConnection.getInstance();
     }
 
     @Override

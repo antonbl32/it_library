@@ -1,6 +1,6 @@
-package by.anton.service;
-
 import by.anton.entity.Book;
+import by.anton.service.BookService;
+import by.anton.service.BookServiceImpl;
 import org.junit.Assert;
 
 import java.beans.PropertyVetoException;
