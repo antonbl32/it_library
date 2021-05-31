@@ -39,7 +39,6 @@ public class MainRunner {
         new MyMenu().init();
         int action;
         do {
-
             while (!scanner.hasNextInt()) {
                 System.out.println("Введите положительное целое число больше 0 и меньше 4!");
                 scanner.next();
@@ -61,24 +60,79 @@ public class MainRunner {
         Scanner scanner = new Scanner(System.in);
         int action;
         do {
-
             while (!scanner.hasNextInt()) {
                 System.out.println("Введите положительное целое число больше 0 и меньше 4!");
+                scanner.next();
+            }
+            action = scanner.nextInt();
+        } while (action < 7 && action > 0);
+        switch (action) {
+            case 1:
+                System.out.println("Введите id книги");
+                int id= scanner.nextInt();
+                bookService.getBookById(id);
+                break;
+            case 2:
+                bookService.getAllBooks();
+                break;
+            case 3:
+                bookService.sortBooksByName(bookService.getAllBooks());
+                break;
+            case 4:
+                bookService.sortBooksByAuthor(bookService.getAllBooks());
+                break;
+            case 5:
+                bookService.sortBooksByGenre(bookService.getAllBooks());
+                break;
+            case 6:
+                mainMenu();
+                break;
+        }
+    }
+
+    private static void menuAdd() {
+        new MyMenu().addToDB();
+        Scanner scanner = new Scanner(System.in);
+        int action;
+        do {
+            while (!scanner.hasNextInt()) {
+                System.out.println("Введите положительное целое число больше 0 и меньше 3!");
                 scanner.next();
             }
             action = scanner.nextInt();
         } while (action < 4 && action > 0);
         switch (action) {
             case 1:
-                bookService.getAllBooks()
+
                 break;
             case 2:
-                bookService.addBook();
+
+                break;
+            case 3:
+                mainMenu();
                 break;
         }
     }
-
-    private static void menuAdd() {
-
+    private static void menuDelete(){
+        new MyMenu().readDB();
+        Scanner scanner = new Scanner(System.in);
+        int action;
+        do {
+            while (!scanner.hasNextInt()) {
+                System.out.println("Введите положительное целое число больше 0 и меньше 2!");
+                scanner.next();
+            }
+            action = scanner.nextInt();
+        } while (action < 3 && action > 0);
+        switch (action) {
+            case 1:
+                System.out.println("Введите id книги для удаления");
+                int id= scanner.nextInt();
+                bookService.deleteBook(id);
+                break;
+            case 2:
+                mainMenu();
+                break;
+        }
     }
 }
