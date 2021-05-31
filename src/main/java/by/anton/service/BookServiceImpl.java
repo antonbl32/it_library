@@ -2,7 +2,10 @@ package by.anton.service;
 
 import by.anton.dao.BookDAO;
 import by.anton.dao.BookDAOImpl;
+import by.anton.entity.Author;
 import by.anton.entity.Book;
+import by.anton.entity.Genre;
+import by.anton.entity.User;
 
 import java.beans.PropertyVetoException;
 import java.util.Comparator;
@@ -52,5 +55,10 @@ public class BookServiceImpl implements BookService {
     public List<Book> sortBooksByGenre(List<Book> list) {
         return list.stream().sorted(Comparator.comparing(book->book.getGenre().getType()))
                 .collect(Collectors.toList());
+    }
+    public Book createBook(int id, String name, Author author, Genre genre, User user){
+
+        Book book=new Book(id,name,author,genre,user);
+        return book;
     }
 }
