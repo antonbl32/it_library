@@ -18,4 +18,6 @@ public interface BookService {
     List<Book> sortBooksByAuthor(List<Book> list);
 
     List<Book> sortBooksByGenre(List<Book> list);
+
+    void createBook();
 }

@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class MainRunner {
     private static BookService bookService = null;
     private static SecurityUser securityUser = null;
-    private static int key=0;
+    private static int key = 0;
     private static boolean auth = false;
 
     static {
@@ -24,12 +24,12 @@ public class MainRunner {
 
     public static void main(String[] args) {
         boolean isWork = true;
-        Scanner scanner=new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         securityUser.getRole();
         do {
             mainMenu();
-            if(scanner.next().equalsIgnoreCase("exit")){
-                isWork=false;
+            if (scanner.next().equalsIgnoreCase("exit")) {
+                isWork = false;
             }
         } while (isWork);
     }
@@ -44,7 +44,7 @@ public class MainRunner {
                 scanner.next();
             }
             action = scanner.nextInt();
-        } while (action < 4 && action > 0);
+        } while (action > 4 && action < 0);
         switch (action) {
             case 1:
                 menuRead();
@@ -52,6 +52,12 @@ public class MainRunner {
             case 2:
                 menuAdd();
                 break;
+            case 3:
+                menuDelete();
+                break;
+            case 4:
+                return;
+
         }
     }
 
@@ -65,24 +71,24 @@ public class MainRunner {
                 scanner.next();
             }
             action = scanner.nextInt();
-        } while (action < 7 && action > 0);
+        } while (action > 7 && action < 0);
         switch (action) {
             case 1:
                 System.out.println("Введите id книги");
-                int id= scanner.nextInt();
-                bookService.getBookById(id);
+                int id = scanner.nextInt();
+                System.out.println(bookService.getBookById(id));
                 break;
             case 2:
-                bookService.getAllBooks();
+                System.out.println(bookService.getAllBooks());
                 break;
             case 3:
-                bookService.sortBooksByName(bookService.getAllBooks());
+                System.out.println(bookService.sortBooksByName(bookService.getAllBooks()));
                 break;
             case 4:
-                bookService.sortBooksByAuthor(bookService.getAllBooks());
+                System.out.println(bookService.sortBooksByAuthor(bookService.getAllBooks()));
                 break;
             case 5:
-                bookService.sortBooksByGenre(bookService.getAllBooks());
+                System.out.println(bookService.sortBooksByGenre(bookService.getAllBooks()));
                 break;
             case 6:
                 mainMenu();
@@ -100,20 +106,18 @@ public class MainRunner {
                 scanner.next();
             }
             action = scanner.nextInt();
-        } while (action < 4 && action > 0);
+        } while (action > 3 && action < 0);
         switch (action) {
             case 1:
-
+                bookService.createBook();
                 break;
             case 2:
-
-                break;
-            case 3:
                 mainMenu();
                 break;
         }
     }
-    private static void menuDelete(){
+
+    private static void menuDelete() {
         new MyMenu().readDB();
         Scanner scanner = new Scanner(System.in);
         int action;
@@ -123,11 +127,11 @@ public class MainRunner {
                 scanner.next();
             }
             action = scanner.nextInt();
-        } while (action < 3 && action > 0);
+        } while (action > 3 && action < 0);
         switch (action) {
             case 1:
                 System.out.println("Введите id книги для удаления");
-                int id= scanner.nextInt();
+                int id = scanner.nextInt();
                 bookService.deleteBook(id);
                 break;
             case 2:

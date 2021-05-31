@@ -63,16 +63,17 @@ public class BookServiceImpl implements BookService {
         return list.stream().sorted(Comparator.comparing(book->book.getGenre().getType()))
                 .collect(Collectors.toList());
     }
+    @Override
     public void createBook(){
         Scanner sc=new Scanner(System.in);
         Scanner sc1=new Scanner(System.in);
         System.out.println("Введите название книги");
         String name=sc.nextLine();
         System.out.println("Введите id автора");
-        authorDAO.getAllAuthors();
+        System.out.println(authorDAO.getAllAuthors());
         int author=sc1.nextInt();
         System.out.println("Введите id жанра");
-        genreDAO.getAllGenres();
+        System.out.println(genreDAO.getAllGenres());
         int genre=sc1.nextInt();
         User user=securityUser.getUserByUUID();
         Book book=new Book(name,authorDAO.getAuthorById(author),genreDAO.getGenreById(genre),user);
