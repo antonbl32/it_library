@@ -32,7 +32,7 @@ public class AuthorDAOImpl implements AuthorDAO {
         try (Connection connection = db.getConnection();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
-            if (!resultSet.next()) {
+            if (resultSet==null) {
                 throw new NoSuchAuthorException("No authors found");
             }
             log.info("Get all authors");

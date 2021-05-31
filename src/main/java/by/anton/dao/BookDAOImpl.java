@@ -68,7 +68,8 @@ public class BookDAOImpl implements BookDAO {
     @Override
     public void addBook(Book book) {
         String sql = "insert into book (book_id,book_name, book_author_id, book_user_id, book_genre) VALUES" +
-                "(default,'" + book.getName() + "'," + book.getAuthor().getId() + "," + book.getUser().getId() + ",";
+                "(default,'" + book.getName() + "'," + book.getAuthor().getId() + "," + book.getUser().getId() + ","
+                + book.getGenre().getId()+";";
         try (Connection connection = db.getConnection();
              Statement statement = connection.createStatement()) {
             statement.execute(sql);

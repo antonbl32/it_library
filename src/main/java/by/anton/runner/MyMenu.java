@@ -8,6 +8,7 @@ public class MyMenu {
         System.out.println("-----------Select 1 to read data base------");
         System.out.println("-----------Select 2 to add to data base----");
         System.out.println("-----------Select 3 to delete from data base");
+        System.out.println("-----------Select 4 to exit----------------");
         System.out.println("-------------------------------------------");
     }
     public void readDB(){

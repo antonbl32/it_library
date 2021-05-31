@@ -12,7 +12,7 @@ public class MainRunner {
     private static SecurityUser securityUser = null;
     private static int key = 0;
     private static boolean auth = false;
-
+    private static boolean isWork = true;
     static {
         try {
             bookService = new BookServiceImpl();
@@ -23,14 +23,10 @@ public class MainRunner {
     }
 
     public static void main(String[] args) {
-        boolean isWork = true;
         Scanner scanner = new Scanner(System.in);
         securityUser.getRole();
         do {
             mainMenu();
-            if (scanner.next().equalsIgnoreCase("exit")) {
-                isWork = false;
-            }
         } while (isWork);
     }
 
@@ -56,6 +52,7 @@ public class MainRunner {
                 menuDelete();
                 break;
             case 4:
+                isWork=false;
                 return;
 
         }
