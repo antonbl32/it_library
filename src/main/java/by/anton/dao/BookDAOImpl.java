@@ -81,7 +81,7 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public void deleteBook(int id) {
-        String sql = "delete from book b where b.=" + id + ";";
+        String sql = "delete from book b where b.book_id=" + id + ";";
         try (Connection connection = db.getConnection();
              Statement statement = connection.createStatement()) {
             if (getBookById(id)!=null) {
