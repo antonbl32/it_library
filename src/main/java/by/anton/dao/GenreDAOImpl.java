@@ -31,7 +31,7 @@ public class GenreDAOImpl implements GenreDAO {
         try (Connection connection = db.getConnection();
              Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
-            if (!resultSet.next()) {
+            if (resultSet==null) {
                 throw new NoSuchAuthorException("Genre with id+" + id + " not found.");
             }
             log.info("Get genre with id " + id);

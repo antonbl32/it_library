@@ -81,18 +81,16 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public void deleteBook(int id) {
-        String sql = "select book.id from book where book.id=" + id + ";";
-        String sqlForDelete = "delete from book where book.id=" + id + ";";
+        String sql = "delete from book b where b.=" + id + ";";
         try (Connection connection = db.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(sql);
-            if (resultSet.next()) {
-                statement.execute(sqlForDelete);
+            if (getBookById(id)!=null) {
+                statement.execute(sql);
                 log.info("book with id " + id + " deleted");
+                System.out.println("Книга с id "+id+" удалена");
             } else {
                 throw new NoSuchBookException("Book with id " + id + " not found");
             }
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (NoSuchBookException e) {

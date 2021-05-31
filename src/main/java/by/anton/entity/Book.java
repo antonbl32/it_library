@@ -18,4 +18,15 @@ public class Book {
     private Genre genre;
     @NonNull
     private User user;
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", author=" + author.getSoname()+" "+author.getName() +
+                ", genre=" + genre.getType() +
+                ", user=" + user.getName() +
+                "}\n";
+    }
 }

@@ -115,7 +115,7 @@ public class MainRunner {
     }
 
     private static void menuDelete() {
-        new MyMenu().readDB();
+        new MyMenu().deleteFromDB();
         Scanner scanner = new Scanner(System.in);
         int action;
         do {
@@ -127,6 +127,7 @@ public class MainRunner {
         } while (action > 3 && action < 0);
         switch (action) {
             case 1:
+                System.out.println(bookService.getAllBooks());
                 System.out.println("Введите id книги для удаления");
                 int id = scanner.nextInt();
                 bookService.deleteBook(id);

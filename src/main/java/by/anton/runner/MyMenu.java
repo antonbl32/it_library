@@ -3,11 +3,11 @@ package by.anton.runner;
 public class MyMenu {
     public void init(){
         System.out.println("-------------------------------------------");
-        System.out.println("-----------MyLibrary data base-------------");
+        System.out.println("-----------MyLibrary database-------------");
         System.out.println("-----------Menu----------------------------");
-        System.out.println("-----------Select 1 to read data base------");
-        System.out.println("-----------Select 2 to add to data base----");
-        System.out.println("-----------Select 3 to delete from data base");
+        System.out.println("-----------Select 1 to read database------");
+        System.out.println("-----------Select 2 to add to database----");
+        System.out.println("-----------Select 3 to delete from database");
         System.out.println("-----------Select 4 to exit----------------");
         System.out.println("-------------------------------------------");
     }
