@@ -9,8 +9,8 @@ import org.junit.Assert;
 import java.beans.PropertyVetoException;
 
 public class BookServiceImplTest {
-    BookService service;
-    AuthorDAO authorDAO;
+    private BookService service;
+    private AuthorDAO authorDAO;
     @org.junit.Test
     public void getBookById() throws PropertyVetoException {
         service = new BookServiceImpl();
