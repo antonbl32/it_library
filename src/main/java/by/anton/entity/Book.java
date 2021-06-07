@@ -28,5 +28,6 @@ public class Book {
                 ", genre=" + genre.getType() +
                 ", user=" + user.getName() +
                 "}\n";
+
     }
 }

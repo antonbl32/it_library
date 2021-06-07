@@ -1,5 +1,6 @@
 package by.anton.service;
 
+
 import by.anton.dao.*;
 import by.anton.entity.Author;
 import by.anton.entity.Book;
@@ -79,5 +80,6 @@ public class BookServiceImpl implements BookService {
         Book book=new Book(name,authorDAO.getAuthorById(author),genreDAO.getGenreById(genre),user);
         addBook(book);
         System.out.println("Книга добавлена");
+
     }
 }

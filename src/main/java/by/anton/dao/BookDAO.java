@@ -5,6 +5,7 @@ import by.anton.entity.Book;
 import java.util.List;
 
 public interface BookDAO {
+
     Book getBookById(int id);
 
     List<Book> getAllBooks();

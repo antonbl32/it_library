@@ -85,5 +85,4 @@
         </plugins>
         <finalName>library</finalName>
     </build>
-
 </project>

@@ -1,7 +1,6 @@
 package by.anton.service;
 
 import by.anton.entity.Book;
-
 import java.util.List;
 
 public interface BookService {

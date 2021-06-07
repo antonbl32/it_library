@@ -1,5 +1,6 @@
 package by.anton.entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 @Data
