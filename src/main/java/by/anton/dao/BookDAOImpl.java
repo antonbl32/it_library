@@ -1,43 +1,100 @@
 package by.anton.dao;
 
+import by.anton.connection.MysqlConnection;
 import by.anton.entity.Book;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import by.anton.exception.NoSuchBookException;
+import by.anton.facade.ResultSetMapToBook;
+import lombok.Data;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.beans.PropertyVetoException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Data
 public class BookDAOImpl implements BookDAO {
-    @Autowired
-    SessionFactory sessionFactory;
+    private MysqlConnection db;
+    private ResultSetMapToBook mapTo = new ResultSetMapToBook();
+    private static final Logger log = LogManager.getLogger(BookDAOImpl.class);
 
-    @Override
-    public List<Book> getAllBooks() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Book", Book.class).getResultList();
-    }
-
-    @Override
-    public void deleteBook(Book book) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(book);
-    }
-
-    @Override
-    public void updateBook(Book book) {
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(book);
-    }
-
-    @Override
-    public void addBook(Book book) {
-        this.updateBook(book);
+    public BookDAOImpl() {
+        this.db = MysqlConnection.getInstance();
     }
 
     @Override
     public Book getBookById(int id) {
-        Session session = sessionFactory.getCurrentSession();
-        return session.get(Book.class, id);
+        String sql = "select * from book b JOIN author a ON a.author_id=b.book_author_id" +
+                "            JOIN genre g on g.genre_id=b.book_genre JOIN user u on u.user_id=b.book_user_id " +
+                " JOIN role r on u.user_role_id=r.role_id where b.book_id=" + id;
+        try (Connection connection = db.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(sql);
+            if (!resultSet.next()) {
+                throw new NoSuchBookException("Book with id+" + id + " not found.");
+            }
+            log.info("Get book with id " + id);
+            return mapTo.mapResultSetToBook(resultSet);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (NoSuchBookException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Book> getAllBooks() {
+        List<Book> list = new ArrayList<>();
+        String sql = "select * from book b JOIN author a ON a.author_id=b.book_author_id " +
+                "JOIN genre g on g.genre_id=b.book_genre JOIN user u on u.user_id=b.book_user_id " +
+                "JOIN role r on r.role_id=u.user_role_id;";
+        try (Connection connection = db.getConnection();
+             Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                list.add(mapTo.mapResultSetToBook(resultSet));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public void addBook(Book book) {
+        String sql = "insert into book (book_id,book_name, book_author_id, book_user_id, book_genre) VALUES" +
+                "(default, '" + book.getName() + "'," + book.getAuthor().getId() + "," + book.getUser().getId() + ","
+                + book.getGenre().getId()+");";
+        try (Connection connection = db.getConnection();
+             Statement statement = connection.createStatement()) {
+            statement.execute(sql);
+            log.info("Add book with id " + book.getId());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteBook(int id) {
+        String sql = "delete from book b where b.book_id=" + id + ";";
+        try (Connection connection = db.getConnection();
+             Statement statement = connection.createStatement()) {
+            if (getBookById(id)!=null) {
+                statement.execute(sql);
+                log.info("book with id " + id + " deleted");
+                System.out.println("Книга с id "+id+" удалена");
+            } else {
+                throw new NoSuchBookException("Book with id " + id + " not found");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (NoSuchBookException e) {
+            e.printStackTrace();
+        }
     }
 }

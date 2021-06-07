@@ -1,21 +1,11 @@
 package by.anton.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import javax.persistence.*;
 @Data
-@Entity
-@Table(name = "role")
+@AllArgsConstructor
 public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
     private int id;
-    @Column(name = "role_admin")
     private int isAdmin;
-    @Column(name = "role_user")
     private int isUser;
-
-    public Role() {
-    }
 }

@@ -2,26 +2,32 @@ package by.anton.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
-import javax.persistence.*;
 @Data
+@RequiredArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name ="book")
 public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "book_id")
-    private  int id;
-    @Column(name = "book_name")
+    private int id;
+    @NonNull
     private String name;
-    @ManyToOne(targetEntity = Author.class,fetch = FetchType.EAGER)
+    @NonNull
     private Author author;
-    @ManyToOne(targetEntity = Genre.class,fetch = FetchType.EAGER)
+    @NonNull
     private Genre genre;
-    @ManyToOne(targetEntity = User.class,fetch = FetchType.EAGER)
+    @NonNull
     private User user;
 
-    public Book() {
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", author=" + author.getSoname()+" "+author.getName() +
+                ", genre=" + genre.getType() +
+                ", user=" + user.getName() +
+                "}\n";
+
     }
 }

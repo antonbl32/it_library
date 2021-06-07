@@ -4,13 +4,19 @@ import by.anton.entity.Book;
 import java.util.List;
 
 public interface BookService {
-    public List<Book> getAllBooks();
+    Book getBookById(int id);
 
-    public void deleteBook(Book book);
+    List<Book> getAllBooks();
 
-    public void updateBook(Book book);
+    void addBook(Book book);
 
-    public void addBook(Book book);
+    void deleteBook(int id);
 
-    public Book getBookById(int id);
+    List<Book> sortBooksByName(List<Book> list);
+
+    List<Book> sortBooksByAuthor(List<Book> list);
+
+    List<Book> sortBooksByGenre(List<Book> list);
+
+    void createBook();
 }
